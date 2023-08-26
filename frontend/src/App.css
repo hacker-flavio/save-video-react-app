@@ -1,0 +1,16 @@
+.App {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+}
+.btn {
+  width: 100px;
+  height: 25px;
+  font-size: 18px;
+}
+.videoContainer {
+  height: 800px;
+  overflow-y: scroll;
+}
