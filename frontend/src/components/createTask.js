@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function CreateTask() {
-  const [prompt, setPrompt] = useState("");
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
@@ -44,30 +43,8 @@ function CreateTask() {
     }
   };
 
-  const createNewTask = async () => {
-    try {
-      // Make a POST request to create a new task
-      await axios.post("/appTasks/createTask", { prompt });
-
-      // Clear the input field after creating the task
-      setPrompt("");
-
-      // Fetch updated tasks list
-      fetchTasks();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <div className="videoContainer">
-      <input
-        type="text"
-        value={prompt}
-        onChange={(e) => setPrompt(e.target.value)}
-      />
-      <button onClick={createNewTask}>Add Task</button>
-
       <ul>
         {tasks.slice(0, 10).map((task, index) => (
           <div>
