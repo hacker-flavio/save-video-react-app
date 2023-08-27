@@ -1,0 +1,5 @@
+/* External CSS */
+.video-resize {
+  width: 320px; /* Fixed width */
+  height: auto; /* Automatically adjust the height */
+}

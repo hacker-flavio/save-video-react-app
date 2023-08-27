@@ -1,13 +1,24 @@
 import React, { useState, useEffect } from "react";
+import SavedVideos from "./lists/SavedVideos";
+import DownloadedVideos from "./lists/DownloadedVideos";
+
+import "../styles/Feed.css";
 import axios from "axios";
 
 function CreateTask() {
   const [tasks, setTasks] = useState([]);
+  const [currentTab, setCurrentTab] = useState("saved");
 
   useEffect(() => {
     // Fetch all tasks on component load
     fetchTasks();
   }, []);
+
+  useEffect(() => {
+    if (currentTab) {
+      console.log(currentTab);
+    }
+  }, [currentTab]);
 
   const fetchTasks = async () => {
     try {
@@ -20,53 +31,28 @@ function CreateTask() {
     }
   };
 
-  const downloadVideo = async (url) => {
-    try {
-      // Make a POST request to create a new task
-      await axios
-        .post("http://localhost:3050/downloadVideo", {
-          videoUrl: url,
-        })
-        .then((response) => {
-          console.log(response);
-          if (response.data.message === "success") {
-            alert("Video downloaded successfully");
-          } else {
-            alert("Video download failed");
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <div className="videoContainer">
-      <ul>
-        {tasks.slice(0, 10).map((task, index) => (
-          <div>
-            <div>
-              <iframe
-                width="560" // Set the desired width
-                height="315" // Set the desired height
-                src={`https://www.youtube.com/embed/${task.substring(
-                  task.length - 11,
-                  task.length
-                )}`} // Replace with your YouTube video URL
-                key={index}
-                title={task}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
-            <li key={index}>{task}</li>
-            <button onClick={() => downloadVideo(task)}>download</button>
-          </div>
-        ))}
-      </ul>
+      <div className="tabs">
+        <div>
+          <button className="tabBtn" onClick={() => setCurrentTab("saved")}>
+            saved
+          </button>
+        </div>
+        <div>
+          <button
+            className="tabBtn"
+            onClick={() => setCurrentTab("downloaded")}
+          >
+            downloaded
+          </button>
+        </div>
+      </div>
+      {currentTab === "saved" ? (
+        <SavedVideos tasks={tasks} />
+      ) : currentTab === "downloaded" ? (
+        <DownloadedVideos />
+      ) : null}
     </div>
   );
 }

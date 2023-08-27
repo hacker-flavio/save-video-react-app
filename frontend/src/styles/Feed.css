@@ -1,0 +1,18 @@
+.tabs {
+  display: flex;
+  width: 100%;
+  border: solid 1px black;
+  justify-content: center;
+}
+
+.tabBtn {
+  width: 150px;
+  height: 25px;
+  font-size: 18px;
+  margin: 5px;
+  border: solid 1px black;
+  cursor: pointer;
+}
+.tabBtn:hover {
+  background-color: #e6e6e6;
+}
